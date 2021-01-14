@@ -36,17 +36,45 @@ for row in rows:
     cols = [ele.text.strip() for ele in cols]
     data.append([ele for ele in cols if ele])
 
-
+Rank = []
+Name_of_University = []
+City = []
+Country = []
+for i in range(len(data)):
+    for j in range(4):
+        if j == 0:
+            Rank.append(data[i][j])
+        elif j == 1:
+            Name_of_University.append(data[i][j])
+        elif j == 2:
+            City.append(data[i][j])
+        elif j == 3:
+            Country.append(data[i][j])
+#print(Rank)
+#print(Name_of_University)
+#print(City)
+#print(Country)
 
 driver.close()
 conn = sqlite3.connect('top_universities.db')
 cur = conn.cursor() 
 #  to create table with the sqllite3.
 # needed to run the command once.
-#cur.execute(''' CREATE TABLE  universities(Rank TEXT, Name_of_University TEXT, City TEXT, Country TEXT)''')
+#cur.execute(''' CREATE TABLE  universities(URank TEXT, UName_of_University TEXT, UCity TEXT, UCountry TEXT)''')
+
+for i in range(len(data)):
+    cur.execute(''' INSERT INTO universities VALUES (?, ?, ?, ?)''', (Rank[i], Name_of_University[i], City[i], Country[i]))
+
+conn.commit()
+
+cur.execute('''SELECT * from universities''')
+result = cur.fetchall()
+
+    
+
 
 def home(request):
     contex = {
-        'post' : data
+        'post' : result
     }
     return render(request, 'home.html', contex)

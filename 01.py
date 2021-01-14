@@ -46,38 +46,42 @@ for row in rows:
 
 #print(data[0][:])
 
-#conn = sqlite3.connect("top_universities.db")
-#cur =  conn.cursor()
+conn = sqlite3.connect("top_universities.db")
+cur =  conn.cursor()
 # first needed to create table then commented the create table code.
-#cur.execute(''' CREATE TABLE Universities(Rank TEXT, Name_of_University TEXT, Name_of_Coourse TEXT, Link_to_the_program_highlights TEXT, City TEXT, Country TEXT)''')
+#cur.execute(''' CREATE TABLE Universities(Rank TEXT, Name_of_University TEXT, City TEXT, Country TEXT)''')
 #for iteam in data:
 #cur.execute(''' INSERT INTO Universities VALUES(?, ?, ?, ?, ?, ?)''', (Rank, Name_of_University, Name_of_Coourse, Link_to_the_program_highlights, City,Country))
   
 driver.close() # closing the webdriver 
 
-#Rank = []
-#Name_of_University = []
-#City = []
-#Country = []
-#for i in range(len(data)):
-#    for j in range(7):
-#        if j == 0:
-#            Rank.append(data[i][j])
-#        elif j == 1:
-#            Name_of_University.append(data[i][j])
-#        elif j == 2:
-#            City.append(data[i][j])
-#        elif j == 3:
-#            Country.append(data[i][j])
+Rank = []
+Name_of_University = []
+City = []
+Country = []
+for i in range(len(data)):
+    for j in range(7):
+        if j == 0:
+            Rank.append(data[i][j])
+        elif j == 1:
+            Name_of_University.append(data[i][j])
+        elif j == 2:
+            City.append(data[i][j])
+        elif j == 3:
+            Country.append(data[i][j])
 #print(Rank)
 #print(Name_of_University)
 #print(City)
 #print(Country)
 
-for iteam in data:
-    for i in range(len(iteam)):
-        c1 = iteam[i]
+#for j, v in enumerate(data):
+#    print(v)
 
+for i in range(len(data)):
+    cur.execute(''' INSERT INTO universities VALUES (?, ?, ?, ?)''', (Rank[i], Name_of_University[i], City[i], Country[i]))
+conn.commit()
+
+print("complet")
             
 
 
