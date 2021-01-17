@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse 
+#from rest_framework.views import APIView
+#from rest_framework.response import Response
+#from rest_framework import status
 from firstapp.models import Uniinf, Program_Highlights
+#from firstapp.serializers import universitiesSerializer
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import sqlite3
@@ -57,6 +61,7 @@ for i in range(len(data)):
 conn.commit()
 cur.execute('''SELECT * from universities''')
 result = cur.fetchall()
+
 
 def home(request):
     contex = {

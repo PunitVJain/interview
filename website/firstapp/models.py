@@ -14,7 +14,7 @@ class Uniinf(models.Model):
 
 
 class Program_Highlights(models.Model):
-    Rank = models.CharField(max_length=100)
+    Uniinf = models.ForeignKey(Uniinf, on_delete=models.CASCADE)
     Start_Month = models.CharField(max_length=10)
     Class_Size = models.CharField(max_length=10)
     Avg_Work_Experience = models.CharField(max_length=10)
