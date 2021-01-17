@@ -1,13 +1,16 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from firstapp.models import Uniinf, Program_Highlights
 import requests 
 from bs4 import BeautifulSoup 
 from selenium import webdriver 
 from selenium.webdriver.common.keys import Keys 
 import time 
 import sqlite3
+# Create your views here.
 
 
-#if __name__ == '__main__':
-    #url of the page we want to scrape 
+#url of the page we want to scrape 
 url = "https://www.topmba.com/emba-rankings/global/2018"
   
 # initiating the webdriver. Parameter includes the path of the webdriver. 
@@ -33,22 +36,12 @@ for row in rows:
     cols = [ele.text.strip() for ele in cols]
     data.append([ele for ele in cols if ele])
 
-
-conn = sqlite3.connect("top_universities.db")
-cur =  conn.cursor()
-# first needed to create table then commented the create table code.
-#cur.execute(''' CREATE TABLE Universities(Rank TEXT, Name_of_University TEXT, City TEXT, Country TEXT)''')
-#for iteam in data:
-#cur.execute(''' INSERT INTO Universities VALUES(?, ?, ?, ?, ?, ?)''', (Rank, Name_of_University, Name_of_Coourse, Link_to_the_program_highlights, City,Country))
-  
-driver.close() # closing the webdriver 
-
 Rank = []
 Name_of_University = []
 City = []
 Country = []
 for i in range(len(data)):
-    for j in range(7):
+    for j in range(4):
         if j == 0:
             Rank.append(data[i][j])
         elif j == 1:
@@ -62,16 +55,17 @@ for i in range(len(data)):
 #print(City)
 #print(Country)
 
-#for j, v in enumerate(data):
-#    print(v)
+driver.close()
+conn = sqlite3.connect('top_universities.db')
+cur = conn.cursor() 
+#  to create table with the sqllite3.
+# needed to run the command once.
+#cur.execute(''' CREATE TABLE  universities(URank TEXT, UName_of_University TEXT, UCity TEXT, UCountry TEXT)''')
 
 for i in range(len(data)):
     cur.execute(''' INSERT INTO universities VALUES (?, ?, ?, ?)''', (Rank[i], Name_of_University[i], City[i], Country[i]))
+
 conn.commit()
 
-print("complet")
-            
-
-
-            
-
+cur.execute('''SELECT * from universities''')
+result = cur.fetchall()
