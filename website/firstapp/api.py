@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from firstapp.serializers import uniinfserializer, Program_Highlightsserializer
 from firstapp.models import Uniinf, Program_Highlights
-
+from rest_framework.authentication.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
 
 
 class universities(APIView):
