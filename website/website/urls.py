@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from firstapp.api import universities, universitydetail
+from firstapp.api import universities, universitydetail, universitiesAuthentication
 
 urlpatterns = [
     path('', include("firstapp.urls")),
     path('admin/', admin.site.urls),
     url(r'^api/universities/$', universities.as_view(), name = 'universities'),
-    url(r'^api/universities/(?P<Rank>\d+)/$', universitydetail.as_view(), name = 'universities')
+    url(r'^api/universities/(?P<Rank>\d+)/$', universitydetail.as_view(), name = 'universities'),
+    url(r'^api/auth/$', universitiesAuthentication.as_view, name ='User Authentication API')
+
 ]

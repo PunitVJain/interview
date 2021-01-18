@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import sqlite3
+import requests
 # Create your views here.
 
 url = 'https://www.topmba.com/emba-rankings/global/2018'
@@ -28,6 +29,7 @@ def sortdata(soup):
         data.append([ele for ele in cols if ele])
     return data #  function returns the list of the data
 data = sortdata(soup)
+
 
 Rank = []
 Name_of_University = []
