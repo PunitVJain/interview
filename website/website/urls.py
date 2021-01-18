@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/universities/$', universities.as_view(), name = 'universities'),
     url(r'^api/universities/(?P<Rank>\d+)/$', universitydetail.as_view(), name = 'universities'),
-    url(r'^api/auth/$', universitiesAuthentication.as_view, name ='User Authentication API')
+    url(r'^api/auth/$', universitiesAuthentication.as_view(), name ='User Authentication API')
 
 ]
